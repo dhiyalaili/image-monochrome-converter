@@ -85,9 +85,8 @@ if menu == "Home":
         """
         Instruksi untuk menggunakan fitur Monochrome Converter:
         1. Unggah gambar dengan format **PNG**, **JPG**, atau **JPEG**.
-        2. Anda dapat mengunggah hingga 10 gambar sekaligus.
-        3. Tekan tombol **Monochrome Converter** pada menu untuk memproses gambar.
-        4. Setelah diproses, unduh gambar yang telah selesai diconvert.
+        2. Tekan tombol **Monochrome Converter** pada menu untuk memproses gambar.
+        3. Setelah diproses, unduh gambar yang telah selesai diconvert.
         """,
         unsafe_allow_html=True,
     )
@@ -146,6 +145,7 @@ elif menu == "Monochrome Converter":
             )
 
 elif menu == "Image Transformation":
+    st.title("Image Transformation")
 
     # Upload file
     uploaded_file = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"])
@@ -182,3 +182,9 @@ elif menu == "Image Transformation":
         with col2:
             st.subheader("Transformed Image")
             st.image(transformed_image, caption="Transformed Image", use_container_width=True)
+
+         st.download_button(
+                label="Download Transformation Image",
+                data=file,
+                file_name="Transform_image.png",
+                mime="image/png",
