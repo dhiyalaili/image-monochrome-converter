@@ -75,7 +75,7 @@ else:
     st.warning("Top image not found.")
 
 # Navigation menu
-menu = st.sidebar.selectbox("Select a Page", ["Home", "Group Members", "Monochrome Converter"])
+menu = st.sidebar.selectbox("Select a Page", ["Home", "Group Members", "Monochrome Converter",  "Image Transformation"])
 
 if menu == "Home":
     # Content for the home page
