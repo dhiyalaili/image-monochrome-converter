@@ -80,7 +80,7 @@ menu = st.sidebar.selectbox("Select a Page", ["Home", "Group Members", "Monochro
 if menu == "Home":
     # Content for the home page
     st.markdown("<h1>Final Project Linear Algebra Group 2 - Class 3</h1>", unsafe_allow_html=True)
-    st.markdown("<h2>Welcome to Image Monochrome Converter</h2>", unsafe_allow_html=True)
+    st.markdown("<h2>Welcome to Image Monochrome Converter and Image Transformation</h2>", unsafe_allow_html=True)
     st.markdown(
         """
         Instruksi untuk menggunakan fitur Image Transformation dan Monochrome Converter:
