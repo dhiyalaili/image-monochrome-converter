@@ -2,7 +2,6 @@ from pathlib import Path
 import streamlit as st
 from PIL import Image, ImageOps
 import numpy as np
-import cv2 
 
 def rgb_to_monochrome(image):
     # Convert image to grayscale
@@ -10,26 +9,24 @@ def rgb_to_monochrome(image):
     return grayscale
 
 def apply_transformations(image, zoom, angle, tx, ty, skew_x, skew_y):
-    h, w = image.shape[:2]
+    # Mengubah gambar ke PIL format jika belum
+    if not isinstance(image, Image.Image):
+        image = Image.fromarray(image)
+    
+    # Fungsi Zoom
+    w, h = image.size
+    new_w, new_h = int(w * zoom), int(h * zoom)
+    image = image.resize((new_w, new_h), Image.Resampling.LANCZOS)
 
-    # fungsi zoom
-    zoom_matrix = cv2.getRotationMatrix2D((w / 2, h / 2), 0, zoom)
-    image = cv2.warpAffine(image, zoom_matrix, (w, h))
+    # Fungsi Rotasi
+    image = image.rotate(angle, expand=True)
 
-    # fungsi rotasi
-    rot_matrix = cv2.getRotationMatrix2D((w / 2, h / 2), angle, 1)
-    image = cv2.warpAffine(image, rot_matrix, (w, h))
-
-    # Fungsi translasi
-    trans_matrix = np.float32([[1, 0, tx], [0, 1, ty]])
-    image = cv2.warpAffine(image, trans_matrix, (w, h))
+    # Fungsi Translasi (Crop dan Padding)
+    image = ImageOps.expand(image, border=(int(tx), int(ty), int(tx), int(ty)), fill="white")
 
     # Fungsi Skewing
-    skew_matrix = np.float32([
-        [1, skew_x, 0],
-        [skew_y, 1, 0]
-    ])
-    image = cv2.warpAffine(image, skew_matrix, (w, h))
+    skew_matrix = (1, skew_x, 0, skew_y, 1, 0)  # Skew matrix dalam format Pillow
+    image = image.transform(image.size, Image.AFFINE, skew_matrix)
 
     return image
 
