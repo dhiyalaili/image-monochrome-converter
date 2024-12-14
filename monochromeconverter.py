@@ -83,11 +83,10 @@ if menu == "Home":
     st.markdown("<h2>Welcome to Image Monochrome Converter</h2>", unsafe_allow_html=True)
     st.markdown(
         """
-        Instruksi untuk menggunakan fitur Monochrome Converter:
+        Instruksi untuk menggunakan fitur Image Transformation dan Monochrome Converter:
         1. Unggah gambar dengan format **PNG**, **JPG**, atau **JPEG**.
-        2. Tekan tombol **Monochrome Converter** pada menu untuk memproses gambar.
-        3. Setelah diproses, unduh gambar yang telah selesai diconvert.
-        """,
+        2. Pilih antara **Monochrome Converter** untuk mengubah gambar menjadi monochrome atau **Image Transformation** untuk melakukan transformasi seperti rotasi, zoom, dan translasi.
+        3. Setelah diproses, unduh gambar yang telah selesai diconvert atau ditransformasi.
         unsafe_allow_html=True,
     )
 
