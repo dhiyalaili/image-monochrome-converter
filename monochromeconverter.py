@@ -182,9 +182,17 @@ elif menu == "Image Transformation":
         with col2:
             st.subheader("Transformed Image")
             st.image(transformed_image, caption="Transformed Image", use_container_width=True)
+
+                # Save transformed image to a temporary file
+        transformed_image_path = "transformed_image.png"
+        transformed_image.save(transformed_image_path)
+        
+        # Add download button for transformed image
+        with open(transformed_image_path, "rb") as file:
             st.download_button(
-                label="Download Transformation Image",
+                label="Download Transformed Image",
                 data=file,
-                file_name="Transform_image.png",
+                file_name="transformed_image.png",
                 mime="image/png",
             )
+
