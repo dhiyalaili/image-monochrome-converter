@@ -187,3 +187,4 @@ elif menu == "Image Transformation":
                 data=file,
                 file_name="Transform_image.png",
                 mime="image/png",
+            )
