@@ -4,6 +4,10 @@ from PIL import Image, ImageOps
 import numpy as np
 import cv2 
 
+git add requirements.txt
+git commit -m "Add OpenCV to requirements.txt"
+git push origin main
+
 def rgb_to_monochrome(image):
     # Convert image to grayscale
     grayscale = image.convert("L")
