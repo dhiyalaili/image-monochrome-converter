@@ -48,7 +48,7 @@ hide_streamlit_style()
 # Add a place for a top logo or image at the top of all pages
 top_image_path = Path("logo pu.png")  # Ganti dengan path gambar logo Anda
 if top_image_path.exists():
-    st.image(str(top_image_path), use_column_width=True)
+    st.image(str(top_image_path), use_container_width=True)
 else:
     st.warning("Top image not found.")
 
@@ -57,11 +57,11 @@ menu = st.sidebar.selectbox("Select a Page", ["Home", "Group Members", "Monochro
 
 if menu == "Home":
     # Content for the home page
-    st.markdown("<h1>Linear Algebra Group 3</h1>", unsafe_allow_html=True)
-    st.markdown("<h2>Welcome to Background Remover</h2>", unsafe_allow_html=True)
+    st.markdown("<h1>Final Project Linear Algebra Group 2 - Class 3</h1>", unsafe_allow_html=True)
+    st.markdown("<h2>Welcome to Image Monochrome Converter</h2>", unsafe_allow_html=True)
     st.markdown(
         """
-        Instruksi untuk menggunakan fitur Background Remover:
+        Instruksi untuk menggunakan fitur Monochrome Converter:
         1. Unggah gambar dengan format **PNG**, **JPG**, atau **JPEG**.
         2. Anda dapat mengunggah hingga 10 gambar sekaligus.
         3. Tekan tombol **Monochrome Converter** pada menu untuk memproses gambar.
@@ -73,10 +73,10 @@ if menu == "Home":
 elif menu == "Group Members":
     # Mapping names to image paths and roles
     anggota = [
-        {"name": "Angelina Nesya Tanly", "image": ".jpg", "SID": "004202300074"},
+        {"name": "Angelina Nesya Tanly", "image": "angel.jpg", "SID": "004202300074"},
         {"name": "Atika Mardatila", "image": "atika.jpg", "SID": "004202300051"},
         {"name": "Dhiya Laili Azizah Pancawati", "image": "dhiya.jpg", "SID": "004202300082"},
-        {"name": "Mahanani Indah Marttaningrum", "image": "Gambar flo.jpg", "SID": "004202300043"},
+        {"name": "Mahanani Indah Marttaningrum", "image": "arum.jpg", "SID": "004202300043"},
     ]
 
     st.markdown("<h2 style='text-align: center;'>Group Members - Group 2</h2>", unsafe_allow_html=True)
@@ -100,6 +100,8 @@ elif menu == "Group Members":
                 st.warning(f"Image for {member['name']} not found: {member['image']}")
 
 elif menu == "Monochrome Converter":
+    # Streamlit app
+    st.title("Image Monochrome Converter")
     uploaded_file = st.file_uploader("Upload an image", type=["png", "jpg", "jpeg"])
     if uploaded_file is not None:
     # Open image
