@@ -2,18 +2,43 @@ from pathlib import Path
 import streamlit as st
 from PIL import Image, ImageOps
 import numpy as np
+import cv2 
 
 def rgb_to_monochrome(image):
     # Convert image to grayscale
     grayscale = image.convert("L")
     return grayscale
 
+def apply_transformations(image, zoom, angle, tx, ty, skew_x, skew_y):
+    h, w = image.shape[:2]
+
+    # fungsi zoom
+    zoom_matrix = cv2.getRotationMatrix2D((w / 2, h / 2), 0, zoom)
+    image = cv2.warpAffine(image, zoom_matrix, (w, h))
+
+    # fungsi rotasi
+    rot_matrix = cv2.getRotationMatrix2D((w / 2, h / 2), angle, 1)
+    image = cv2.warpAffine(image, rot_matrix, (w, h))
+
+    # Fungsi translasi
+    trans_matrix = np.float32([[1, 0, tx], [0, 1, ty]])
+    image = cv2.warpAffine(image, trans_matrix, (w, h))
+
+    # Fungsi Skewing
+    skew_matrix = np.float32([
+        [1, skew_x, 0],
+        [skew_y, 1, 0]
+    ])
+    image = cv2.warpAffine(image, skew_matrix, (w, h))
+
+    return image
+
 # Constants
 MAX_FILES = 10
 ALLOWED_TYPES = ["png", "jpg", "jpeg"]
 
 # Set up page configuration
-st.set_page_config(page_title="Final Project Linear Algebra Group 2 - IE 2023 Class 3")
+st.set_page_config(page_title="Final Project Linear Algebra Group 2 - IE 2023 Class 3", layout="wide")
 
 def hide_streamlit_style():
     """Applies custom styles to the Streamlit app."""
@@ -63,8 +88,9 @@ if menu == "Home":
         """
         Instruksi untuk menggunakan fitur Monochrome Converter:
         1. Unggah gambar dengan format **PNG**, **JPG**, atau **JPEG**.
-        2. Tekan tombol **Monochrome Converter** pada menu untuk memproses gambar.
-        3. Setelah diproses, unduh gambar yang telah selesai diconvert.
+        2. Anda dapat mengunggah hingga 10 gambar sekaligus.
+        3. Tekan tombol **Monochrome Converter** pada menu untuk memproses gambar.
+        4. Setelah diproses, unduh gambar yang telah selesai diconvert.
         """,
         unsafe_allow_html=True,
     )
@@ -121,3 +147,41 @@ elif menu == "Monochrome Converter":
                 file_name="monochrome_image.png",
                 mime="image/png",
             )
+
+elif menu == "Image Transformation":
+
+    # Upload file
+    uploaded_file = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"])
+    if uploaded_file:
+        # Read the image
+        image = Image.open(uploaded_file)
+        image_np = np.array(image)
+
+        st.sidebar.header("Transformations")
+
+        # Zoom
+        zoom = st.sidebar.slider("Zoom", 0.1, 3.0)
+
+        # Rotation
+        angle = st.sidebar.slider("Rotation Angle", -180, 180, 0)
+
+        # Translation
+        tx = st.sidebar.slider("Translate X", -200, 200, 0)
+        ty = st.sidebar.slider("Translate Y", -200, 200, 0)
+
+        # Skewing
+        skew_x = st.sidebar.slider("Skew X", -0.5, 0.5, 0.0, 0.01)
+        skew_y = st.sidebar.slider("Skew Y", -0.5, 0.5, 0.0, 0.01)
+
+        # Apply transformations
+        transformed_image = apply_transformations(image_np, zoom, angle, tx, ty, skew_x, skew_y)
+
+        # Menampilkan gambar asli dan diubah
+        col1, col2 = st.columns(2)
+        with col1:
+            st.subheader("Original Image")
+            st.image(image, caption="Original Image", use_container_width=True)
+
+        with col2:
+            st.subheader("Transformed Image")
+            st.image(transformed_image, caption="Transformed Image", use_container_width=True)
