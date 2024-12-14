@@ -182,8 +182,7 @@ elif menu == "Image Transformation":
         with col2:
             st.subheader("Transformed Image")
             st.image(transformed_image, caption="Transformed Image", use_container_width=True)
-
-         st.download_button(
+            st.download_button(
                 label="Download Transformation Image",
                 data=file,
                 file_name="Transform_image.png",
