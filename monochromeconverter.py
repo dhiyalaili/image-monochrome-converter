@@ -63,9 +63,8 @@ if menu == "Home":
         """
         Instruksi untuk menggunakan fitur Monochrome Converter:
         1. Unggah gambar dengan format **PNG**, **JPG**, atau **JPEG**.
-        2. Anda dapat mengunggah hingga 10 gambar sekaligus.
-        3. Tekan tombol **Monochrome Converter** pada menu untuk memproses gambar.
-        4. Setelah diproses, unduh gambar yang telah selesai diconvert.
+        2. Tekan tombol **Monochrome Converter** pada menu untuk memproses gambar.
+        3. Setelah diproses, unduh gambar yang telah selesai diconvert.
         """,
         unsafe_allow_html=True,
     )
