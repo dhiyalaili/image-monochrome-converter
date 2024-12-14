@@ -87,7 +87,7 @@ if menu == "Home":
         1. Unggah gambar dengan format **PNG**, **JPG**, atau **JPEG**.
         2. Pilih antara **Monochrome Converter** untuk mengubah gambar menjadi monochrome atau **Image Transformation** untuk melakukan transformasi seperti rotasi, zoom, dan translasi.
         3. Setelah diproses, unduh gambar yang telah selesai diconvert atau ditransformasi.
-        """
+        """,
         unsafe_allow_html=True,
     )
 
